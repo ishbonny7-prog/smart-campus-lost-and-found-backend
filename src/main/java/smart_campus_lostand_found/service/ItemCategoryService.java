@@ -7,7 +7,7 @@ import java.util.List;
 
 @Service
 public class ItemCategoryService {
-    public final ItemCategoryRepository repository;
+    private final ItemCategoryRepository repository;
 
     public ItemCategoryService(ItemCategoryRepository repository){
         this.repository=repository;
@@ -18,6 +18,14 @@ public class ItemCategoryService {
 
     public List < ItemCategory> findAll (){
         return repository.findAll();
+    }
+
+    public ItemCategory findById(java.util.UUID id){
+        return repository.findById(id).orElse(null);
+    }
+
+    public void deleteById(java.util.UUID id){
+        repository.deleteById(id);
     }
 
     
