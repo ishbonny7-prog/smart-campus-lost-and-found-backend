@@ -4,16 +4,19 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import smart_campus_lostand_found.entity.LostReport;
+import smart_campus_lostand_found.entity.ReportStatus;
 import smart_campus_lostand_found.service.LostReportService;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/lost-reports")
-public class LostReporController {
+public class LostReportController {
     public final LostReportService service;
 
-    public LostReporController(LostReportService service){
+    public LostReportController(LostReportService service){
         this.service= service;
     }
 
@@ -63,5 +66,15 @@ public ResponseEntity<?> findById(@PathVariable UUID id )   {
     }
     service.deleteById(id);
     return ResponseEntity.ok("lost report delete success fully ");
+ }
+
+ @GetMapping("/by-status")
+ public List<LostReport> findByStatus(@RequestParam ReportStatus status){
+    return service.findByStatus(status);
+ }
+
+ @GetMapping ("between")
+ public List<LostReport> findBetween(@RequestParam String start,@RequestParam String end){
+    return service.findBetween(LocalDate.parse(start),LocalDate.parse(end));
  }
 }

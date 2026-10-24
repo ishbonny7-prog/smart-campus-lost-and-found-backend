@@ -72,5 +72,10 @@ public class OwnerController {
     return ResponseEntity.ok( "Owner deleted successfully");
  }
 
+ @GetMapping("/by-last-name")
+ public List<Owner> findByLastName(@RequestParam String lastName){
+    return service.findByLastName(lastName);
+ }
+
     
 }

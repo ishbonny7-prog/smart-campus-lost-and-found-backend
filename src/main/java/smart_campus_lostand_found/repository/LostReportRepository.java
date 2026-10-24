@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+
 public interface LostReportRepository extends JpaRepository< LostReport,UUID> {
     List<LostReport> findByStatusOrderByReportDateAsc(ReportStatus status);
 
@@ -26,5 +27,7 @@ public interface LostReportRepository extends JpaRepository< LostReport,UUID> {
         """)
 
        int closeReports( @Param("officeId") UUID offUuid,@Param("date") LocalDate date);
+       
+
     
 }

@@ -31,5 +31,9 @@ public class OwnerService {
         repository.deleteById(id);
     }
 
+    public List<Owner> findByLastName(String lastName){
+        return repository.findBylastNameIgnoreCaseOrderByFirstNameAsc(lastName);
+    }
+
     
 }
