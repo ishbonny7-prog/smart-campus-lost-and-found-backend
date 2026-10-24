@@ -16,6 +16,22 @@ public class FoundDesk {
     
    }
 
+   public int getDeskNumber(){
+      return deskNumber;
+
+   }
+   public void setDeskNumber(int deskNumber){
+      this.deskNumber= deskNumber;
+   }
+
+   public String getName(){
+      return name;
+   }
+
+   public void setName(String name){
+      this.name = name;
+   }
+
 
 
 }

@@ -25,4 +25,10 @@ public class FoundDeskService {
     public void deleteById(UUID id){
         repository.deleteById(id);
     }
+
+    public FoundDesk save(FoundDesk desk){
+        return repository.save(desk);
+    }
+
+    
 }
