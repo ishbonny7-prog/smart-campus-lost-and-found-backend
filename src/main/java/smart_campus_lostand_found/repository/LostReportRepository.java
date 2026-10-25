@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+import smart_campus_lostand_found.entity.DeskOfficer;
 
 
 public interface LostReportRepository extends JpaRepository< LostReport,UUID> {
@@ -22,11 +23,13 @@ public interface LostReportRepository extends JpaRepository< LostReport,UUID> {
     SET r.status = smart_campus_lostand_found.entity.ReportStatus.CLOSED
     WHERE r.deskOfficer.id = :officerId
     AND r.reportDate = :date
-    AND r.status<> smart_campus_lostland_found.entity.ReportStatus.RECOVERED
+    AND r.status<> smart_campus_lostand_found.entity.ReportStatus.RECOVERED
         
         """)
 
-       int closeReports( @Param("officeId") UUID offUuid,@Param("date") LocalDate date);
+       int closeReports( @Param("officerId") UUID officerId,@Param("date") LocalDate date);
+
+       boolean existsByDeskOfficerAndReportDateAndStatusNot(DeskOfficer officer, LocalDate date,ReportStatus status);
        
 
     

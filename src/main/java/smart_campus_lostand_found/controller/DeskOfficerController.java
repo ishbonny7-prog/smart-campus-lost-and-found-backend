@@ -76,4 +76,39 @@ public class DeskOfficerController {
         return service.findByItemCategoryName(name);
     }
     
+    @PutMapping("/{deskOfficerId}/item-categories/{itemCategoryId}")
+    public ResponseEntity <String> addCategory(@PathVariable UUID deskOfficerId,@PathVariable UUID itemCategoryId){
+
+        String message = service.addCategory(deskOfficerId, itemCategoryId);
+
+        if (message.equals("the desk with that id does not exist")){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+
+        }
+        if (message.equals("that itme category does not exist")){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+
+        }
+
+        if (message.equals("the desk officer already has that itme category")){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
+        }
+        return ResponseEntity.ok(message);
+
+    }
+
+    @PatchMapping("/{deskOfficerId}/found-desk")
+    public ResponseEntity <String> changeDesk(@PathVariable UUID deskOfficerId,
+    @RequestParam int deskNumber){
+        String message = service.changeDesk(deskOfficerId, deskNumber);
+
+        if (message.equals("found desk changed successfully"))
+        return ResponseEntity.ok(message);
+
+        if (message.equals("that found desk is taken by another desk officer"))
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+    }
+
 }

@@ -22,9 +22,19 @@ public class LostReportController {
 
     @PostMapping("/save")
     public ResponseEntity<String> save(@RequestBody LostReport report){
-        service.save(report);
-        return ResponseEntity.status(HttpStatus.CREATED)
-        .body("Lost report saved successfully");
+        String message = service.save(report);
+
+        if (message.equals("Lost report date cannot be in the past")){
+            return ResponseEntity.badRequest().body(message);
+
+        }
+        if (message.equals("desk officer already handles a report on that date")){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
+
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(message);
+     
+     
     }
 
     @GetMapping("/{id}")
@@ -56,7 +66,7 @@ public ResponseEntity<?> findById(@PathVariable UUID id )   {
  }
 
 
- @DeleteMapping("/delete/{id}}")
+ @DeleteMapping("/delete/{id}")
  public ResponseEntity<String> delete(@PathVariable UUID id){
     LostReport report= service.findById(id);
 
@@ -73,8 +83,23 @@ public ResponseEntity<?> findById(@PathVariable UUID id )   {
     return service.findByStatus(status);
  }
 
- @GetMapping ("between")
+ @GetMapping ("/between")
  public List<LostReport> findBetween(@RequestParam String start,@RequestParam String end){
     return service.findBetween(LocalDate.parse(start),LocalDate.parse(end));
+ }
+
+ @PatchMapping("/{id}/status")
+ public ResponseEntity<String> updateStatus(@PathVariable UUID id, @RequestParam ReportStatus status){
+    String message = service.updateStatus(id, status);
+
+    if (message.equals("The lost report with that id does not exist")){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+    }
+    if (message.startsWith("cannot change status")){
+        return ResponseEntity.badRequest().body(message);
+    }
+
+    return ResponseEntity.ok(message);
+
  }
 }
