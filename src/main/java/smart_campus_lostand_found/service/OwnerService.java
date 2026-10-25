@@ -32,7 +32,11 @@ public class OwnerService {
     }
 
     public List<Owner> findByLastName(String lastName){
-        return repository.findBylastNameIgnoreCaseOrderByFirstNameAsc(lastName);
+        return repository.findByLastNameIgnoreCaseOrderByFirstNameAsc(lastName);
+    }
+
+    public List <Owner> findOwnerByDeskOfficerId(UUID id){
+        return repository.findOwnerByDeskOfficerId(id);
     }
 
     

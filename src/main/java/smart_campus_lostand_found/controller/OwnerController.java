@@ -77,5 +77,10 @@ public class OwnerController {
     return service.findByLastName(lastName);
  }
 
+ @GetMapping("/of-desk-officer/{deskOfficerId}")
+ public List<Owner> findOwnersByDeskOfficerId(@PathVariable UUID deskOfficerId){
+    return service.findOwnerByDeskOfficerId(deskOfficerId);
+ }
+
     
 }

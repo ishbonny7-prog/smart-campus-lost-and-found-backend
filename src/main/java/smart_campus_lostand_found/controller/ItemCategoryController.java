@@ -76,6 +76,12 @@ public ResponseEntity<String> delete(@PathVariable UUID id){
             service.save(existing);
             return ResponseEntity.ok("Item category updated successfully") ;
         }
+
+
+        @GetMapping("/unused")
+        public List<ItemCategory> findUnusedCategories(){
+            return service.findUnusedCategories();
+        }
     
 }
 

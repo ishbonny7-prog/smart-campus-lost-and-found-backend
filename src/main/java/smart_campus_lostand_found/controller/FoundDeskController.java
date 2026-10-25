@@ -67,6 +67,11 @@ public class FoundDeskController {
         return ResponseEntity.ok("Found desk deleted successfully");
     }
 
+    @GetMapping("/free")
+    public List<FoundDesk> findFreeDesks(){
+        return service.findFreeDesks();
+    }
+
 
     
 }

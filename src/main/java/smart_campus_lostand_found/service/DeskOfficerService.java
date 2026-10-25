@@ -29,5 +29,7 @@ public class DeskOfficerService {
     public void deleteById(UUID id){
         repository.deleteById(id);
     }
-    
+     public List<DeskOfficer> findByItemCategoryName(String name){
+        return repository.findByItemCategoryName(name);
+     }
 }

@@ -28,5 +28,8 @@ public class ItemCategoryService {
         repository.deleteById(id);
     }
 
+    public List <ItemCategory> findUnusedCategories(){
+        return repository.findUnusedCategories();
+    }
     
 }

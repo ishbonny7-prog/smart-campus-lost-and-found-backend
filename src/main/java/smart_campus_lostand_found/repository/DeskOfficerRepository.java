@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import smart_campus_lostand_found.entity.FoundDesk;
 
 public interface DeskOfficerRepository extends JpaRepository<DeskOfficer,UUID> {
-    @Query ("SELECT DISTINT d FROM DeskOfficer d JOIN d.itemCategories c WHERE (C.name)= LOWER(:name)")
+    @Query ("SELECT DISTINCT d FROM DeskOfficer d JOIN d.itemCategories c WHERE LOWER(C.name)= LOWER(:name)")
     List <DeskOfficer>  findByItemCategoryName(@Param("name")String name);
 
     boolean existsByFoundDesk(FoundDesk foundDesk);

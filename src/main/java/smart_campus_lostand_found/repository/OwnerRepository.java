@@ -11,7 +11,7 @@ import smart_campus_lostand_found.entity.DeskOfficer;
 
 
 public interface OwnerRepository extends JpaRepository<Owner,UUID> {
-    List<Owner> findBylastNameIgnoreCaseOrderByFirstNameAsc(String lastName);
+    List<Owner> findByLastNameIgnoreCaseOrderByFirstNameAsc(String lastName);
 
     @Query("SELECT DISTINCT r.owner FROM LostReport r WHERE r.deskOfficer.id= :id")
     List <Owner> findOwnerByDeskOfficerId(UUID id);

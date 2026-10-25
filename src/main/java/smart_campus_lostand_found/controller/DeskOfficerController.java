@@ -70,5 +70,10 @@ public class DeskOfficerController {
         service.deleteById(id);
         return ResponseEntity.ok("Desk officer deleted successfully");
     }
+
+    @GetMapping("/by-item-category")
+    public List<DeskOfficer> findByItemCategoryName(@RequestParam String name){
+        return service.findByItemCategoryName(name);
+    }
     
 }

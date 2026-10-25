@@ -30,5 +30,9 @@ public class FoundDeskService {
         return repository.save(desk);
     }
 
+    public List<FoundDesk> findFreeDesks(){
+        return repository.findFreeDesks();
+    }
+
     
 }
