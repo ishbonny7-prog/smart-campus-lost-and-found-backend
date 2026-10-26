@@ -106,4 +106,19 @@ public ResponseEntity<?> findById(@PathVariable UUID id )   {
     }
     return ResponseEntity.ok(message);
  }
+
+ @GetMapping("/stats/by-status") 
+ public List<Object[]> countReportsByStatus(){
+    return service.countReportsByStatus();
+ }
+
+ @PatchMapping("/cancel-day")
+ public ResponseEntity<String> cancelReports(
+    @RequestParam UUID deskOfficerId,
+    @RequestParam String date 
+ ){
+
+    int count = service.cancelReports(deskOfficerId, LocalDate.parse(date));
+    return ResponseEntity.ok(count + " lost reports cancelled");
+ }
 }

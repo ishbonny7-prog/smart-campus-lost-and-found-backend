@@ -102,9 +102,17 @@ public class LostReportService {
         repository.deleteById(id);
         return "Lost report deleted successfully";
     }
+
+    public List<Object[]> countReportsByStatus(){
+        return repository.countReportsByStatus();
+
+    }
     
 
-
+public int cancelReports(UUID officerId, LocalDate date){
+    return repository.closeReports(officerId, date);
+    
+}
 
     
 }

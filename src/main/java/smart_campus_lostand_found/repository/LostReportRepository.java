@@ -8,7 +8,11 @@ import smart_campus_lostand_found.entity.ReportStatus;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import smart_campus_lostand_found.entity.DeskOfficer;
 
 
@@ -31,6 +35,9 @@ public interface LostReportRepository extends JpaRepository< LostReport,UUID> {
 
        boolean existsByDeskOfficerAndReportDateAndStatusNot(DeskOfficer officer, LocalDate date,ReportStatus status);
        
+@Query ("SELECT r.status, COUNT(r) FROM LostReport r GROUP BY r.status")
+List<Object[]> countReportsByStatus();
+
 
     
 }
