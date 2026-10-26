@@ -66,17 +66,6 @@ public ResponseEntity<?> findById(@PathVariable UUID id )   {
  }
 
 
- @DeleteMapping("/delete/{id}")
- public ResponseEntity<String> delete(@PathVariable UUID id){
-    LostReport report= service.findById(id);
-
-    if (report == null){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-        .body("the lsot report with that id does not exist");
-    }
-    service.deleteById(id);
-    return ResponseEntity.ok("lost report delete success fully ");
- }
 
  @GetMapping("/by-status")
  public List<LostReport> findByStatus(@RequestParam ReportStatus status){
@@ -101,5 +90,20 @@ public ResponseEntity<?> findById(@PathVariable UUID id )   {
 
     return ResponseEntity.ok(message);
 
+ }
+
+ @DeleteMapping("/delete/{id}")
+ public ResponseEntity<String> delete(@PathVariable UUID id){
+    String message = service.deleteById(id);
+
+    if (message.equals("the lost report with that id does not exists")){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+
+    }
+    if(message.equals("that lost has return records , delete  them first")){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
+
+    }
+    return ResponseEntity.ok(message);
  }
 }

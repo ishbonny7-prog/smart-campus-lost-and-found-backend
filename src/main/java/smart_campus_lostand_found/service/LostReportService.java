@@ -9,14 +9,17 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import smart_campus_lostand_found.entity.ReportStatus;
+import smart_campus_lostand_found.repository.ReturnRecordRepository;
 
 @Service
 public class LostReportService {
 
     private final LostReportRepository repository;
+    private final ReturnRecordRepository returnRecordRepository;
 
-    public LostReportService(LostReportRepository repository){
+    public LostReportService(LostReportRepository repository,ReturnRecordRepository returnRecordRepository){
         this.repository=repository;
+        this.returnRecordRepository = returnRecordRepository;
     }
 
 
@@ -29,9 +32,7 @@ public class LostReportService {
         return repository.findById(id).orElse(null);
     }
 
-    public void deleteById(UUID id){
-        repository.deleteById(id);
-    }
+
 
     public List<LostReport> findByStatus(ReportStatus status) {
         return repository.findByStatusOrderByReportDateAsc(status);
@@ -86,6 +87,20 @@ public class LostReportService {
 
         }
         return "Cannot change status form "+old+"to "+ status;
+    }
+
+
+    public String deleteById(UUID id){
+        LostReport report = findById(id);
+
+        if (report== null)
+        return "the lost report with that id does not exist";
+
+        if (returnRecordRepository.existsByLostReport(report))
+        return "that lost report has return records , delete them frist";
+
+        repository.deleteById(id);
+        return "Lost report deleted successfully";
     }
     
 

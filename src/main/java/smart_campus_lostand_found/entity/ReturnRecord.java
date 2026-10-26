@@ -14,7 +14,7 @@ public class ReturnRecord {
     private String itemName;
     private String verificationNote;
     private int quantity;
-    private LocalDate returDate;
+    private LocalDate returnedDate;
 
     @ManyToOne
     @JoinColumn(name ="lost_report_id")
@@ -23,5 +23,56 @@ public class ReturnRecord {
     public ReturnRecord(){
         
     }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public String getVerificationNote() {
+        return verificationNote;
+    }
+
+    public void setVerificationNote(String verificationNote) {
+        this.verificationNote = verificationNote;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public LocalDate getReturnedDate() {
+        return returnedDate;
+    }
+
+    public void setReturnedDate(LocalDate returnedDate) {
+        this.returnedDate = returnedDate;
+    }
+
+    public LostReport getLostReport() {
+        return lostReport;
+    }
+
+    public void setLostReport(LostReport lostReport) {
+        this.lostReport = lostReport;
+    }
+
+
+
     
 }
