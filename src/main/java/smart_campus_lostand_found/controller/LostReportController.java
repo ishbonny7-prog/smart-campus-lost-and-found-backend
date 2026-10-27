@@ -10,7 +10,10 @@ import smart_campus_lostand_found.service.LostReportService;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 @RestController
 @RequestMapping("/api/lost-reports")
 public class LostReportController {
@@ -121,4 +124,16 @@ public ResponseEntity<?> findById(@PathVariable UUID id )   {
     int count = service.cancelReports(deskOfficerId, LocalDate.parse(date));
     return ResponseEntity.ok(count + " lost reports cancelled");
  }
+
+ @GetMapping("/page")
+ public Page<LostReport> findPage(
+    @RequestParam(defaultValue = "0" )int page,
+    @RequestParam(defaultValue = "5")int size,
+    @RequestParam(defaultValue = "reportDate,desc") String sort){
+
+        String[] parts = sort.split(",");
+        Pageable pageable = PageRequest.of(page,size,Sort.by(Sort.Direction.fromString(parts[1]),parts[0]));
+        return service.findPage(pageable);
+    }
+ 
 }

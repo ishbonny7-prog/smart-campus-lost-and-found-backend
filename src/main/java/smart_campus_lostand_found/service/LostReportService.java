@@ -5,11 +5,14 @@ import smart_campus_lostand_found.entity.LostReport;
 import smart_campus_lostand_found.repository.LostReportRepository;
 import smart_campus_lostand_found.entity.DeskOfficer;
 
+ 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import smart_campus_lostand_found.entity.ReportStatus;
 import smart_campus_lostand_found.repository.ReturnRecordRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class LostReportService {
@@ -112,6 +115,10 @@ public class LostReportService {
 public int cancelReports(UUID officerId, LocalDate date){
     return repository.closeReports(officerId, date);
     
+}
+
+public Page<LostReport> findPage(Pageable pageable){
+    return repository.findAll(pageable);
 }
 
     

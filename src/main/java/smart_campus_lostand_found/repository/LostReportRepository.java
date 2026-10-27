@@ -38,6 +38,10 @@ public interface LostReportRepository extends JpaRepository< LostReport,UUID> {
 @Query ("SELECT r.status, COUNT(r) FROM LostReport r GROUP BY r.status")
 List<Object[]> countReportsByStatus();
 
+long countByReportDate(LocalDate reportDate);
+
+long countReportsByStatus(ReportStatus status);
+
 
     
 }
